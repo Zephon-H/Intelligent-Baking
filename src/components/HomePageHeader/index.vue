@@ -1,20 +1,21 @@
 <template>
   <div class="all">
     <div class="header-text">
-      <div style="font-size: 1.1rem;">欢迎您，{{ userNname }} ! |</div>
-      <router-link to="/LoginPage" class="header-text-quit">退出</router-link>
+      <div style="font-size: 1.1rem;">欢迎您，{{ userNname }} !</div>
     </div>
     <div class="selector-container">
-      <div style="font-size: 1.1rem; margin-top: -0.5rem">数据时延：</div>
-      <el-select style="width:7rem;margin-top:-0.6rem" @change="delayChange" v-model="delay">
-        <el-option
-            v-for="item in delayOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-        </el-option>
-      </el-select>
+      <div style="font-size: 1.1rem">时间选择：</div>
+      <el-time-picker
+          is-range
+          v-model="timeValue"
+          @change="timeValueChange"
+          range-separator="至"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          placeholder="选择时间范围">
+      </el-time-picker>
     </div>
+    <router-link to="/LoginPage" class="header-text-quit">退出</router-link>
   </div>
 </template>
 <script>
@@ -24,42 +25,19 @@ export default {
   name: "index",
   data() {
     return {
-      userNname: JSON.parse(localStorage.getItem('bdi_iot_user')).nname,
-      //时延变量
-      delay: this.$store.state.homePageDelay,
-      //数据时延选择器配置
-      delayOptions: [
-        {
-          label: '1s',
-          value: 1000
-        },
-        {
-          label: '3s',
-          value: 3000
-        },
-        {
-          label: '5s',
-          value: 5000
-        },
-        {
-          label: '10s',
-          value: 10000
-        },
-        {
-          label: '24h',
-          value: 24 * 60 * 60 * 1000
-        }
-      ]
+      userNname: JSON.parse(localStorage.getItem('user')).nname,
+      // timeValue: [new Date(2021, 10, 29, 8, 40), new Date(2021, 10, 29,9, 40)],
+
+      timeValue: this.$store.state.homePageTimeValue,
     }
   },
   computed: {
-    ...mapState(['homePageDelay', 'user']) //Vuex引入homePageDelay（数据时延）变量
+    ...mapState(['homePageTimeValue', 'user']) //Vuex引入homePageTimeValue变量
   },
   methods: {
-    ...mapMutations(['setHomePageDelay']), //Vuex引入homePageDelay（数据时延）变量更改方法
-    //选择时延后设置并强制渲染
-    delayChange() {
-      this.setHomePageDelay(this.delay)
+    ...mapMutations(['setTimeValue']), //Vuex引入homePageTimeValue变量更改方法
+    timeValueChange() {
+      this.setTimeValue(this.timeValue)
       this.$forceUpdate()
     },
     quit() {
@@ -73,7 +51,7 @@ export default {
 <style scoped lang="less">
 
 .header-text {
-  margin: -0.5rem 0 0 2.3rem;
+  margin: 0.2rem 0 0 2.3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -94,8 +72,11 @@ export default {
 }
 
 .header-text-quit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-size: 1.1rem;
-  margin-left: 1rem;
+  margin-left: 2rem;
   color: #1990ff;
   text-decoration: underline;
 }

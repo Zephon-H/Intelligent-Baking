@@ -12,10 +12,9 @@ export function loginRequest(obj){
     let user={
         id:'',
         gender:'',
-        jurisdiction:'',
         name:'',
         nname:'',
-        number:'',
+        phone:'',
     }
     axios.post(requestUrl,post).then((res)=>{
         console.log(res.data)
@@ -23,12 +22,11 @@ export function loginRequest(obj){
         bool=res.data.identify
         user.id=res.data.user
         user.gender=res.data.gender
-        user.jurisdiction=res.data.jurisdiction
         user.name=res.data.name
         user.nname=res.data.nname
-        user.number=res.data.number
-        localStorage.setItem('bdi_iot_token',res.data.token)
-        localStorage.setItem('bdi_iot_user',JSON.stringify(user))
+        user.phone=res.data.phone
+        localStorage.setItem('token',res.data.token)
+        localStorage.setItem('user',JSON.stringify(user))
     }).catch((err)=>{
         console.log(err)
     }).finally(()=>{

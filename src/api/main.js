@@ -4,4 +4,5 @@
 
 
 // export let url = PROTOCL+HOST+":"+PORT
-export let url = ''
+// export let url = '/api'
+export let url = '/api'

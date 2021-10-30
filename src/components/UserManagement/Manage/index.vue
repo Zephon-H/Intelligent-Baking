@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="user-bottom" v-if="jurisdiction==0" style="border-bottom: 0.1rem solid #F1F1F3;">
+    <div class="user-bottom" style="border-bottom: 0.1rem solid #F1F1F3;">
       <div class="row" style="margin-top: 1.65rem">
         <div class="query-container">
           <img src="../../../assets/img/查找.svg" style="width: 0.81rem;height: 0.81rem;margin: 0 0.4rem 0 0.4rem">
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import {getUserList, queryUserById, deleteUser, changeUserInfo} from '../../../api/UserManagement'
+import {queryUserById, deleteUser, changeUserInfo} from '../../../api/UserManagement'
 
 export default {
   name: "index",
@@ -91,7 +91,7 @@ export default {
       //通过输入ID查找用户_id
       inputId: '',
       //从localstorege读取用户权限
-      jurisdiction: JSON.parse(localStorage.getItem('bdi_iot_user')).jurisdiction
+      jurisdiction: JSON.parse(localStorage.getItem('user')).jurisdiction
     }
   },
   methods: {
@@ -111,7 +111,7 @@ export default {
         errmsg += '手机号不合法,请重新输入.'
       }
       if (bool1 && bool2) {
-        changeUserInfo(this, JSON.parse(sessionStorage.getItem('bdi_iot_userList'))[index].id, this.userList[index])
+        changeUserInfo(this, JSON.parse(sessionStorage.getItem('user'))[index].id, this.userList[index])
         this.userList[index].ifEdit = false
       } else {
         alert('修改失败!' + errmsg)
@@ -146,9 +146,17 @@ export default {
     },
     //获取用户列表请求
     getUser() {
-      if (this.jurisdiction == 0) {
-        getUserList(this)
-      }
+      this.userList = [
+        {
+          id:'1000',
+          name: '花木成',
+          nname: 'aa',
+          gender: '男'
+        }
+      ]
+      // if (this.jurisdiction == 0) {
+      //   getUserList(this)
+      // }
     }
   },
   mounted() {

@@ -4,16 +4,13 @@
     <img src="../../../assets/img/头像.jpg" alt="用户头像" class="user-img">
     <div class="col" style="margin:0 0 0 2rem;">
       <input type="text" class="user-nname" style="width: 8rem" v-model="user.nname" v-if="ifEdit"/>
-      <div class="user-nname" style="width: 8rem" v-else>{{ user.nname }}</div>
-      <div class="user-id row" v-if="ifEdit">
-        <div class="row" style="width: 3rem">用户名:</div>
-        <input type="text" class="user-id" v-model="user.id"/>
-      </div>
-      <div class="user-id" v-else>用户名:{{ user.id }}</div>
-      <div class="user-admin" v-if="user.jurisdiction==0">管理员</div>
-      <div class="user-admin" style="background:#3B86FF;color: white" v-else-if="user.jurisdiction==1">V I P</div>
+      <div class="user-nname" style="width: 10rem" v-else>{{ user.nname }}</div>
     </div>
-    <div class="row" style="margin-top: 2.68rem">
+    <div class="row" style="margin-top: 2rem">
+      <div class="user-info-container col" style="width: 6rem">
+        <div class="user-info-title">用户编号：</div>
+        <div class="user-info-text">{{ user.id }}</div>
+      </div>
       <div class="user-info-container col" style="width: 6rem">
         <div class="user-info-title">姓名：</div>
         <input class="user-info-text" v-model="user.name" v-if="ifEdit"/>
@@ -29,8 +26,8 @@
       </div>
       <div class="user-info-container col" style="width: 6rem">
         <div class="user-info-title">手机号：</div>
-        <input class="user-info-text" v-model="user.number" v-if="ifEdit"/>
-        <div class="user-info-text" v-else>{{ user.number }}</div>
+        <input class="user-info-text" v-model="user.phone" v-if="ifEdit"/>
+        <div class="user-info-text" v-else>{{ user.phone }}</div>
       </div>
     </div>
     <div style="width: 100%;display: flex;justify-content: flex-end">
@@ -54,7 +51,7 @@ export default {
   data() {
     return {
       //获取个人用户信息
-      user: JSON.parse(localStorage.getItem('bdi_iot_user')),
+      user: JSON.parse(localStorage.getItem('user')),
       //是否编辑状态变量
       ifEdit: false,
     }
@@ -66,14 +63,14 @@ export default {
     },
     //取消编辑
     cancel(){
-      this.user=JSON.parse(localStorage.getItem('bdi_iot_user'))
+      this.user=JSON.parse(localStorage.getItem('user'))
       this.ifEdit = false
     },
     //确认提交修改 检查输入项合法后发起修改用户信息请求
     confirmMy() {
       let errmsg=''
       let bool1=/^[a-zA-Z0-9]\w{5,10}$/.test(this.user.id)
-      let bool2=/^1[3-9]\d{9}$/.test(this.user.number)
+      let bool2=/^1[3-9]\d{9}$/.test(this.user.phone)
       if(!bool1){
         errmsg+='id不合法,请输入6-10位字母数字或下划线.'
       }
@@ -84,7 +81,7 @@ export default {
         errmsg+='输入项不能为空.'
       }
       if(bool1 && bool2 && this.user.name && this.user.nname && this.user.gender){
-        changeUserInfo(this,JSON.parse(localStorage.getItem('bdi_iot_user')).id,this.user)
+        changeUserInfo(this,JSON.parse(localStorage.getItem('user')).id,this.user)
       }else{
         alert('修改失败!'+errmsg)
       }
@@ -124,26 +121,9 @@ export default {
 }
 
 .user-nname {
-  font-size: 1.36rem;
+  font-size: 1.3rem;
   color: #43425D;
-  margin-bottom: 0.67rem;
-}
-
-.user-id {
-  font-size: 0.78rem;
-  color: #43425D;
-  margin-bottom: 0.66rem;
-}
-
-.user-admin {
-  width: 5rem;
-  height: 1.62rem;
-  font-size: 0.74rem;
-  border-radius: 1rem;
-  background: #FFCA83;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 2rem;
 }
 
 .user-info-container {

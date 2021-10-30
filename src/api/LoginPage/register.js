@@ -14,6 +14,7 @@ export function registerRequest(obj){
     }
     let bool
     axios.post(requestUrl,post).then((res)=>{
+        res.data = res.data.data // 改
         bool=res.data.identify
         errmsg=res.data.errmsg
     }).catch((err)=>{

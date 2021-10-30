@@ -49,7 +49,7 @@
           <div class="row register-input-container" style="margin-left: 5rem">
             <div class="register-input-text">性别:</div>
             <select name="gender" id="gender" class="gender-select" v-model="gender.value">
-              <option value=""></option>
+<!--              <option value=""></option>-->
               <option value="男">男</option>
               <option value="女">女</option>
             </select>
@@ -61,7 +61,7 @@
           <div class="register-ckb-text">我同意条款和协议并完成注册</div>
         </div>
         <div>
-          <button class="register-btn" @click="registerReq">注册</button>
+          <el-button type="primary" class="register-btn" @click="registerReq">注册</el-button>
         </div>
         <div class="register-botton-text" @click="login">已经有账号了？点击这里登入</div>
       </div>
@@ -228,6 +228,7 @@ export default {
   font-weight: bold;
   letter-spacing: 1rem;
   color: #143992;
+  cursor: default;
 
 }
 
@@ -236,7 +237,7 @@ export default {
   font-weight: bold;
   letter-spacing: 0.48rem;
   color: #143992;
-
+  cursor: default;
 }
 
 .register-text {
@@ -244,6 +245,7 @@ export default {
   font-size: 1.21rem;
   color: #A6A7AD;
   margin: 2rem 0 2rem 2.6rem;
+  cursor: default;
 }
 
 .register-id-container {
@@ -327,7 +329,7 @@ export default {
   width: 100%;
   height: 2rem;
   border: none;
-  text-align: right;
+  text-align: left;
   font-size: 1.08rem;
   color: #143992;
 }
@@ -340,11 +342,16 @@ export default {
   background: #143992;
   border-radius: 1rem;
 }
+.register-btn:hover{
+  opacity: 0.8;
+  background: #143992;
+}
 
 .register-ckb-text {
   font-size: 1.01rem;
   color: #43425D;
-  margin-left: 0.26rem
+  margin-left: 0.26rem;
+  cursor: default;
 }
 
 .register-botton-text {
@@ -352,6 +359,7 @@ export default {
   color: #43425D;
   margin-left: 9rem;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .img-end {

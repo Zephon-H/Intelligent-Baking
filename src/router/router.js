@@ -6,9 +6,6 @@ import UserManagement from '../view/HomePage/UserManagement/index'
 import DataAnalysis from '../view/HomePage/DataAnalysis/index'
 import Grafana from '../view/HomePage/Grafana'
 import Home from '../view/HomePage/Home/index'
-import SensingData from '../components/DataAnalysis/SensingData'
-import TrajectoryData from '../components/DataAnalysis/TrajectoryData'
-import LocationData from '../components/DataAnalysis/LocationData'
 import ApplicationScenarios from '../view/HomePage/ApplicationScenarios'
 import CampusSecurity from '../components/ApplicationScenarios/CampusSecurity'
 import GymSecurity from '../components/ApplicationScenarios/GymSecurity'
@@ -101,24 +98,6 @@ const router = new Router(({
         {
           path: '/HomePage/DataAnalysis',
           component: DataAnalysis,
-          children: [
-            {
-              path: '/HomePage/DataAnalysis/SensingData',
-              component: SensingData
-            },
-            {
-              path: '/HomePage/DataAnalysis/TrajectoryData',
-              component: TrajectoryData
-            },
-            {
-              path: '/HomePage/DataAnalysis/LocationData',
-              component: LocationData
-            },
-            {
-              path: '',
-              redirect: '/HomePage/DataAnalysis/SensingData'
-            }
-          ]
         },
         {
           path: '/HomePage/UserManagement',
@@ -148,7 +127,8 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     let reqUrl = url + '/LoginPage/TokenCertify'
-    axios.get(reqUrl).then((res) => {
+    console.log(reqUrl)
+    axios.get(reqUrl, localStorage['token']).then((res) => {
       res.data = res.data.data // 修改
       bool1 = res.data.identify
     }).catch((err) => {
@@ -156,9 +136,7 @@ router.beforeEach((to, from, next) => {
     }).finally(() => {
       switch (bool1) {
         case true:
-          console.log("before next")
           next();
-          console.log("next")
           break
         case false:
           alert('请登录后重试！')

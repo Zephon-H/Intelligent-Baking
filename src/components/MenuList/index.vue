@@ -22,35 +22,35 @@ export default {
           path: "/HomePage/Home",
         },
         {
-          name: "数据分析",
+          name: "数据查询",
           src: require("../../assets/img/数据分析.svg"),
           path: "/HomePage/DataAnalysis",
         },
-        {
-          name: "Grafana",
-          src: require("../../assets/img/仪表盘.svg"),
-          path: "/HomePage/Grafana",
-        },
-        {
-          name: "应用场景",
-          src: require("../../assets/img/场景.svg"),
-          path: "/HomePage/ApplicationScenarios",
-        },
-        {
-          name: "设备管理",
-          src: require("../../assets/img/设备.svg"),
-          path: "/HomePage/DeviceManagement",
-        },
+        // {
+        //   name: "Grafana",
+        //   src: require("../../assets/img/仪表盘.svg"),
+        //   path: "/HomePage/Grafana",
+        // },
+        // {
+        //   name: "应用场景",
+        //   src: require("../../assets/img/场景.svg"),
+        //   path: "/HomePage/ApplicationScenarios",
+        // },
+        // {
+        //   name: "设备管理",
+        //   src: require("../../assets/img/设备.svg"),
+        //   path: "/HomePage/DeviceManagement",
+        // },
         {
           name: "用户管理",
           src: require("../../assets/img/用户.svg"),
           path: "/HomePage/UserManagement",
         },
-        {
-          name: "道闸开关",
-          src: require("../../assets/img/开关.svg"),
-          path: "/HomePage/Switch",
-        },
+        // {
+        //   name: "道闸开关",
+        //   src: require("../../assets/img/开关.svg"),
+        //   path: "/HomePage/Switch",
+        // },
       ],
     };
   },

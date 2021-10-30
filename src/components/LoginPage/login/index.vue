@@ -35,13 +35,15 @@ export default {
       password: ''
     }
   },
+  mounted() {
+    document.body.style.overflow = "hidden";
+  },
   methods: {
     //供给接口调用，判断是否登陆成功
     login(bool) {
       setTimeout(()=>{
         if (bool) {
           this.$router.push('/HomePage/Home')
-          console.log(this.$route)
         } else {
           alert('用户名或者密码错误！')
         }
@@ -67,6 +69,7 @@ export default {
   font-weight: bold;
   letter-spacing: 1rem;
   color: #143992;
+  cursor: default;
 }
 
 .login-cn-text {
@@ -74,6 +77,7 @@ export default {
   font-weight: bold;
   letter-spacing: 0.46rem;
   color:#143992;
+  cursor: default;
 }
 
 .login-text {
@@ -81,6 +85,7 @@ export default {
   font-size: 1.21rem;
   color: #A6A7AD;
   margin: 2.8rem 0 2.8rem 3.16rem;
+  cursor: default;
 }
 
 .login-id-container {
@@ -129,6 +134,10 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 1.21rem;
+  cursor: pointer;
+}
+.login-btn-lg:hover{
+  opacity: 0.8;
 }
 
 .login-btn-rg {
@@ -143,5 +152,9 @@ export default {
   color: #143992;
   margin-left: 3.66rem;
   background: white;
+  cursor: pointer;
+}
+.login-btn-rg:hover{
+  opacity: 0.6;
 }
 </style>

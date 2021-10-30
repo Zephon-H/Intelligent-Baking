@@ -2,17 +2,7 @@
   <div>
     <div class="col" style="margin-top: 1.65rem;">
       <div style="font-size: 1.89rem;color:#43425D;">密码管理</div>
-      <div v-if="this.user.jurisdiction==0">
-        <div class="row mgt">
-          <div>用户名：</div>
-          <input type="text" class="pwd" v-model="adminId"/>
-        </div>
-        <div class="row mgt">
-          <div>新密码：</div>
-          <input type="password" class="pwd" v-model="adminPwd"/>
-        </div>
-      </div>
-      <div style="margin-top: 1rem" v-else>
+      <div style="margin-top: 1rem">
         <div class="row">
           <div>原密码：</div>
           <input type="password" class="pwd" style="margin-left: 1rem" v-model="pwd"/>
@@ -33,48 +23,42 @@
 
 <script>
 import {changeUserPwd} from '../../../api/UserManagement'
+
 export default {
   name: "index",
-  data(){
-    return{
+  data() {
+    return {
       //普通用户原密码
-      pwd:'',
+      pwd: '',
       //普通用户新面貌
-      newPwd:'',
+      newPwd: '',
       //普通用户确认新密码
-      confirmPwd:'',
+      confirmPwd: '',
       //管理员输入要修改密码的用户名
-      adminId:'',
+      adminId: '',
       //管理员输入修改后的密码
-      adminPwd:'',
+      adminPwd: '',
       //调取个人信息
-      user:JSON.parse(localStorage.getItem('bdi_iot_user'))
+      user: JSON.parse(localStorage.getItem('user'))
 
     }
   },
-  methods:{
+  methods: {
     //修改密码请求
-    changePwd(){
-      if(this.user.jurisdiction==0){
-        let bool=/^[a-zA-Z0-9]\w{6,18}$/.test(this.adminPwd)
-        if(bool){
-          changeUserPwd(this.adminId,'',this.adminPwd)
-        }else{
-          alert('密码不合法，请输入6-10位密码数字或下划线')
-        }
-      }else{
-        let bool1=/^[a-zA-Z0-9]\w{6,18}$/.test(this.pwd)
-        if(bool1 && this.pwd===this.newPwd){
-          changeUserPwd(this.user.id,this.pwd,this.newPwd)
-        }else{
-          alert('密码不合法或两次输入密码不一致')
-        }
+    changePwd() {
+      console.log(this.user)
+      let bool1 = /^[a-zA-Z0-9]\w{6,18}$/.test(this.pwd)
+      console.log(this.pwd, this.newPwd, bool1)
+      if (bool1 && this.confirmPwd === this.newPwd) {
+        changeUserPwd(this.user.id, this.pwd, this.newPwd)
+      } else {
+        alert('密码不合法或两次输入密码不一致')
       }
-      this.pwd=''
-      this.newPwd=''
-      this.confirmPwd=''
-      this.adminPwd=''
-      this.adminId=''
+      this.pwd = ''
+      this.newPwd = ''
+      this.confirmPwd = ''
+      this.adminPwd = ''
+      this.adminId = ''
     }
   }
 }
@@ -90,13 +74,16 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.mgt{
+
+.mgt {
   margin-top: 1rem;
 }
-.pwd{
+
+.pwd {
   width: 8rem;
 }
-.pwd-btn{
+
+.pwd-btn {
   width: 10rem;
   height: 2rem;
   background: #3B86FF;

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {url} from '../main'
+import * as request from "../../utils/request";
 // let url = 'http://localhost'
 
 
@@ -32,50 +33,94 @@ export function deviceMonitoringRequest(obj) {
 }
 
 
-//首页数据监测数据请求
-export function dataMonitoringRequest(obj) {
-    let dataMonitoringRequestUrl = url + '/HomePage/Home/DataMonitoring'
+//首页数据监测数据请求 用到
+export function dataMonitoringRequest(obj, params) {
+    // console.log("param",params)
+    let p = {
+        startTime: params[0],
+        endTime: params[1]
+    }
+    let dataMonitoringRequestUrl = url + '/HomePage/Home/DeviceData'
+    let runningDevice = [], abnormalDevice = [], time = []
+    request.post(dataMonitoringRequestUrl, p).then(res => {
+        runningDevice = res.data.runningDevice
+        abnormalDevice = res.data.abnormalDevice
+        time = res.data.time
+    }).catch(err =>{
+        console.log(err)
+    }).finally(()=>{
+        obj.setDataDeviceOption(runningDevice, abnormalDevice, time)
+    })
+
+
     // let tempData = [26, 37, 39, 34, 28, 38, 27, 29],
     //     humidData = [20, 30, 37, 58, 64, 70, 54, 43],
     //     illData = [3000, 4000, 5000, 3000, 2000, 4000, 7000, 8000]
     // let tempDate = ['7.22', '7.22', '7.23', '7.23', '7.24', '7.24', '7.25', '7.25'],
     //     humidDate = ['7.22', '7.22', '7.23', '7.23', '7.24', '7.24', '7.25', '7.25'],
     //     illDate = ['7.22', '7.22', '7.23', '7.23', '7.24', '7.24', '7.25', '7.25']
-    let tempData = [],
-        tempDate=[],
-        humidData = [],
-        illData = [],
-        humidDate = [],
-        illDate = [],
-        data1=[],
-        data2=[],
-        data3=[]
-        axios.get(dataMonitoringRequestUrl).then((res) => {
-        let len=res.data.lux_data.length-1;
-        for (let i = len ;i >=0 ; i--) {
-            data1.push(res.data.temp_data[i].value)
-            let t_date = `${res.data.temp_data[i].Time.month}.${res.data.temp_data[i].Time.day}`
-            tempDate.push(t_date)
-            let _t_date=`${res.data.temp_data[i].Time.year}-${res.data.temp_data[i].Time.month <10? '0'+res.data.temp_data[i].Time.month:res.data.temp_data[i].Time.month}-${res.data.temp_data[i].Time.day <10? '0'+res.data.temp_data[i].Time.day:res.data.temp_data[i].Time.day} ${res.data.temp_data[i].Time.hour<10? '0'+res.data.temp_data[i].Time.hour:res.data.temp_data[i].Time.hour}:${res.data.temp_data[i].Time.minute<10? '0'+res.data.temp_data[i].Time.minute:res.data.temp_data[i].Time.minute}:${res.data.temp_data[i].Time.second<10? '0'+res.data.temp_data[i].Time.second:res.data.temp_data[i].Time.second}`
+    // let data1 = [], data2 = [], data3 = []
+    // let tempData = [],
+    //     tempDate=[],
+    //     humidData = [],
+    //     illData = [],
+    //     humidDate = [],
+    //     illDate = [],
+    //     data1=[],
+    //     data2=[],
+    //     data3=[]
+    // axios.get(dataMonitoringRequestUrl).then((res) => {
+    //     let len = res.data.lux_data.length - 1;
+    //     for (let i = len; i >= 0; i--) {
+    //         data1.push(res.data.temp_data[i].value)
+    //         let t_date = `${res.data.temp_data[i].Time.month}.${res.data.temp_data[i].Time.day}`
+    //         tempDate.push(t_date)
+    //         let _t_date = `${res.data.temp_data[i].Time.year}-${res.data.temp_data[i].Time.month < 10 ? '0' + res.data.temp_data[i].Time.month : res.data.temp_data[i].Time.month}-${res.data.temp_data[i].Time.day < 10 ? '0' + res.data.temp_data[i].Time.day : res.data.temp_data[i].Time.day} ${res.data.temp_data[i].Time.hour < 10 ? '0' + res.data.temp_data[i].Time.hour : res.data.temp_data[i].Time.hour}:${res.data.temp_data[i].Time.minute < 10 ? '0' + res.data.temp_data[i].Time.minute : res.data.temp_data[i].Time.minute}:${res.data.temp_data[i].Time.second < 10 ? '0' + res.data.temp_data[i].Time.second : res.data.temp_data[i].Time.second}`
+    //
+    //         tempData.push([i, res.data.temp_data[i].value, _t_date])
+    //
+    //         data2.push(res.data.hum_data[i].value)
+    //         let h_date = `${res.data.hum_data[i].Time.month}.${res.data.hum_data[i].Time.day}`
+    //         let _h_date = `${res.data.hum_data[i].Time.year}-${res.data.hum_data[i].Time.month < 10 ? '0' + res.data.hum_data[i].Time.month : res.data.hum_data[i].Time.month}-${res.data.hum_data[i].Time.day < 10 ? '0' + res.data.hum_data[i].Time.day : res.data.hum_data[i].Time.day} ${res.data.hum_data[i].Time.hour < 10 ? '0' + res.data.hum_data[i].Time.hour : res.data.hum_data[i].Time.hour}:${res.data.hum_data[i].Time.minute < 10 ? '0' + res.data.hum_data[i].Time.minute : res.data.hum_data[i].Time.minute}:${res.data.hum_data[i].Time.second < 10 ? '0' + res.data.hum_data[i].Time.second : res.data.hum_data[i].Time.second}`
+    //         humidDate.push(h_date)
+    //         humidData.push([i, res.data.hum_data[i].value, _h_date])
+    //
+    //         data3.push(res.data.lux_data[i].value)
+    //         let i_date = `${res.data.lux_data[i].Time.month}.${res.data.lux_data[i].Time.day}`
+    //         let _i_date = `${res.data.lux_data[i].Time.year}-${res.data.lux_data[i].Time.month < 10 ? '0' + res.data.lux_data[i].Time.month : res.data.lux_data[i].Time.month}-${res.data.lux_data[i].Time.day < 10 ? '0' + res.data.lux_data[i].Time.day : res.data.lux_data[i].Time.day} ${res.data.lux_data[i].Time.hour < 10 ? '0' + res.data.lux_data[i].Time.hour : res.data.lux_data[i].Time.hour}:${res.data.lux_data[i].Time.minute < 10 ? '0' + res.data.lux_data[i].Time.minute : res.data.lux_data[i].Time.minute}:${res.data.lux_data[i].Time.second < 10 ? '0' + res.data.lux_data[i].Time.second : res.data.lux_data[i].Time.second}`
+    //         illDate.push(i_date)
+    //         illData.push([i, res.data.lux_data[i].value, _i_date])
+    //     }
+    // }).catch((err) => {
+    //     console.log(err)
+    // }).finally(() => {
+    //     obj.setDataMonitoringOption(tempDate, tempData, data1, humidDate, humidData, data2, illDate, illData, data3)
+    // })
+    // obj.setDataMonitoringOption(tempDate, tempData, data1, humidDate, humidData, data2, illDate, illData, data3)
+}
 
-            tempData.push([i,res.data.temp_data[i].value,_t_date])
-
-            data2.push(res.data.hum_data[i].value)
-            let h_date = `${res.data.hum_data[i].Time.month}.${res.data.hum_data[i].Time.day}`
-            let _h_date=`${res.data.hum_data[i].Time.year}-${res.data.hum_data[i].Time.month <10? '0'+res.data.hum_data[i].Time.month:res.data.hum_data[i].Time.month}-${res.data.hum_data[i].Time.day <10? '0'+res.data.hum_data[i].Time.day:res.data.hum_data[i].Time.day} ${res.data.hum_data[i].Time.hour<10? '0'+res.data.hum_data[i].Time.hour:res.data.hum_data[i].Time.hour}:${res.data.hum_data[i].Time.minute<10? '0'+res.data.hum_data[i].Time.minute:res.data.hum_data[i].Time.minute}:${res.data.hum_data[i].Time.second<10? '0'+res.data.hum_data[i].Time.second:res.data.hum_data[i].Time.second}`
-            humidDate.push(h_date)
-            humidData.push([i,res.data.hum_data[i].value,_h_date])
-
-            data3.push(res.data.lux_data[i].value)
-            let i_date = `${res.data.lux_data[i].Time.month}.${res.data.lux_data[i].Time.day}`
-            let _i_date=`${res.data.lux_data[i].Time.year}-${res.data.lux_data[i].Time.month <10? '0'+res.data.lux_data[i].Time.month:res.data.lux_data[i].Time.month}-${res.data.lux_data[i].Time.day <10? '0'+res.data.lux_data[i].Time.day:res.data.lux_data[i].Time.day} ${res.data.lux_data[i].Time.hour<10? '0'+res.data.lux_data[i].Time.hour:res.data.lux_data[i].Time.hour}:${res.data.lux_data[i].Time.minute<10? '0'+res.data.lux_data[i].Time.minute:res.data.lux_data[i].Time.minute}:${res.data.lux_data[i].Time.second<10? '0'+res.data.lux_data[i].Time.second:res.data.lux_data[i].Time.second}`
-            illDate.push(i_date)
-            illData.push([i,res.data.lux_data[i].value,_i_date])
-        }
-    }).catch((err) => {
+// 用到
+export function deviceTemperatureHumidDataRequest(obj, params){
+    // console.log("param",params)
+    console.log(params);
+    let p = {
+        deviceId: 0
+        // startTime: params[0],
+        // endTime: params[1],
+        // deviceId: params[2],
+    }
+    let dataDeviceDetailRequestUrl = url + '/HomePage/Home/DeviceDataDetail'
+    let temperature1 = [], temperature2 = [], humidity1 = [], humidity2 = [], time = []
+    request.post(dataDeviceDetailRequestUrl, p).then(res => {
+        temperature1 = res.data.temperature1
+        temperature2 = res.data.temperature2
+        humidity1 = res.data.humidity1
+        humidity2 = res.data.humidity2
+        time = res.data.time
+    }).catch(err =>{
         console.log(err)
-    }).finally(() => {
-        obj.setDataMonitoringOption(tempDate,tempData,data1, humidDate, humidData,data2, illDate, illData,data3)
+    }).finally(()=>{
+        obj.setDeviceDataOption(temperature1,temperature2, humidity1, humidity2, time)
     })
 }
 
@@ -100,39 +145,51 @@ export function deviceControlRequestGet(obj) {
     })
 }
 
-//首页设备控制模块发起控制请求
-export function deviceControlRequestPost(obj) {
-    let deviceControlRequestPostUrl = url + '/HomePage/Home/DeviceControl'
-    axios.post(deviceControlRequestPostUrl, {
-        alarm: obj.BuzzerStatus,
-        led: obj.LedStatus,
-        motor: obj.ElectricStatus
-    }).then((res) => {
-        console.log(res)
-    }).catch((err) => {
-        console.log(err)
-    })
-}
+// //首页设备控制模块发起控制请求
+// export function deviceControlRequestPost(obj) {
+//     let deviceControlRequestPostUrl = url + '/HomePage/Home/DeviceControl'
+//     axios.post(deviceControlRequestPostUrl, {
+//         alarm: obj.BuzzerStatus,
+//         led: obj.LedStatus,
+//         motor: obj.ElectricStatus
+//     }).then((res) => {
+//         console.log(res)
+//     }).catch((err) => {
+//         console.log(err)
+//     })
+// }
 
-//首页地图位置数据请求
-export function mapRequest(obj, BMapGL) {
-    let mapRequestUrl = url + '/HomePage/Home/MapMonitoring'
-    let addsData = [new BMapGL.Point(114.40555, 22.707533)],
-        idData = ['000A']
+// //首页地图位置数据请求
+// export function mapRequest(obj, BMapGL) {
+//     let mapRequestUrl = url + '/HomePage/Home/MapMonitoring'
+//     let addsData = [new BMapGL.Point(114.40555, 22.707533)],
+//         idData = ['000A']
+//
+//     axios.get(mapRequestUrl).then((res) => {
+//         for (let i = 0; i < res.data.longitude.length; i++) {
+//             if (res.data.longitude[i] && res.data.latitude[i] && res.data.Id[i]) {
+//                 addsData.push(new BMapGL.Point(res.data.longitude[i], res.data.latitude[i]))
+//                 idData.push(res.data.Id[i])
+//             }
+//         }
+//     }).catch((err) => {
+//         console.log(err)
+//     }).finally(() => {
+//         obj.adds = addsData
+//         obj.deviceId = idData
+//     })
+// }
+//
 
-    axios.get(mapRequestUrl).then((res) => {
-        for (let i = 0; i < res.data.longitude.length; i++) {
-            if (res.data.longitude[i] && res.data.latitude[i] && res.data.Id[i]) {
-                addsData.push(new BMapGL.Point(res.data.longitude[i], res.data.latitude[i]))
-                idData.push(res.data.Id[i])
-            }
-        }
+export function queryDataRequest(obj, params) {
+    console.log(params)
+    let queryDataRequestGetUrl = url + '/HomePage/Home/QueryData'
+    let options
+    axios.post(queryDataRequestGetUrl, params).then((res) => {
+        options = res.data.data.options
     }).catch((err) => {
         console.log(err)
     }).finally(() => {
-        obj.adds = addsData
-        obj.deviceId = idData
+        obj.options = options
     })
 }
-
-

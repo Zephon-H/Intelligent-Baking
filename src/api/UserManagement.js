@@ -20,6 +20,7 @@ export function changeUserInfo(obj, id, user) {
     let data = {id, user}
     let bool, errmsg = ''
     axios.post(reqUrl, data).then((res) => {
+        res.data = res.data.data // 修改
         bool = res.data.identify
         if (!bool) {
             errmsg = res.data.errmsg
@@ -64,10 +65,11 @@ export function deleteUser(id,obj) {
     })
 }
 //更改用户密码
-export function changeUserPwd(id, pwd, newPwd) {
+export function changeUserPwd(id, newPwd) {
     let reqUrl = url + '/HomePage/UserManagement/Pwd'
-    let data = {id, pwd, newPwd}
+    let data = {id, newPwd}
     axios.post(reqUrl, data).then((res) => {
+        res.data = res.data.data // 修改
         if (res.data.identify) {
             alert('修改成功')
         } else {

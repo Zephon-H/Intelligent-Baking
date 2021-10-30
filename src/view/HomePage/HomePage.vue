@@ -24,14 +24,16 @@ export default {
 .menu {
   background: #001628;
   width: 12rem;
-  /*height: 80rem;*/
+  /*height: 58rem;*/
+  height: 100%;
   display: flex;
   flex-direction: column;
-  margin: -0.7rem 0 0 -0.64rem;
+  /*margin: -0.7rem 0 0 -0.64rem;*/
+  overflow: hidden;
 }
 
 .header {
-  height: 2.8rem;
+  height: 5rem;
   width: 100rem;
   background: #ffffff;
   margin: 0 0 0 0;
@@ -47,7 +49,7 @@ export default {
 .all {
   display: flex;
   flex-direction: row;
-  width: 98%;
+  width: 100%;
 }
 
 .view {

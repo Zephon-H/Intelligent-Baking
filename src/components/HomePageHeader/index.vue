@@ -5,15 +5,24 @@
     </div>
     <div class="selector-container">
       <div style="font-size: 1.1rem">时间选择：</div>
-      <el-time-picker
-          is-range
-          v-model="timeValue"
-          @change="timeValueChange"
-          range-separator="至"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
-          placeholder="选择时间范围">
-      </el-time-picker>
+      <el-select v-model="timeValue.startTime" @change="changeSelection">
+        <el-option
+            v-for="item in options"
+            :key="item"
+            :label="item"
+            :value="item"
+        >
+        </el-option>
+      </el-select>
+      <el-select v-model="timeValue.endTime" @change="changeSelection">
+        <el-option
+            v-for="item in options"
+            :key="item"
+            :label="item"
+            :value="item"
+        >
+        </el-option>
+      </el-select>
     </div>
     <router-link to="/LoginPage" class="header-text-quit">退出</router-link>
   </div>
@@ -27,9 +36,12 @@ export default {
     return {
       userNname: JSON.parse(localStorage.getItem('user')).nname,
       // timeValue: [new Date(2021, 10, 29, 8, 40), new Date(2021, 10, 29,9, 40)],
-
+      options: [],
       timeValue: this.$store.state.homePageTimeValue,
     }
+  },
+  mounted() {
+    this.initOptions()
   },
   computed: {
     ...mapState(['homePageTimeValue', 'user']) //Vuex引入homePageTimeValue变量
@@ -37,13 +49,27 @@ export default {
   methods: {
     ...mapMutations(['setTimeValue']), //Vuex引入homePageTimeValue变量更改方法
     timeValueChange() {
+      console.log("change", this.timeValue)
       this.setTimeValue(this.timeValue)
       this.$forceUpdate()
     },
     quit() {
-      localStorage.removeItem('bdi_iot_token')
-      localStorage.removeItem('bdi_iot_user')
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
       this.$router.push('/LoginPage')
+    },
+    initOptions() {
+      this.options = ["1d", "2d", "3d", "4d", "5d", "6d", "7d", "8d", "9d", "10d", "11d"]
+    },
+    changeSelection(val) {
+      val
+      let start = parseInt(this.timeValue.startTime)
+      let end = parseInt(this.timeValue.endTime)
+      if (start < end) {
+        console.log("timeValue", this.timeValue)
+      }else{
+        this.timeValue.startTime = "1d"
+      }
     }
   }
 }

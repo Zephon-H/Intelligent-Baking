@@ -36,16 +36,12 @@ export function deviceMonitoringRequest(obj) {
 //首页数据监测数据请求 用到
 export function dataMonitoringRequest(obj, params) {
     // console.log("param",params)
-    let p = {
-        startTime: params[0],
-        endTime: params[1]
-    }
     let dataMonitoringRequestUrl = url + '/HomePage/Home/DeviceData'
     let runningDevice = [], abnormalDevice = [], time = []
-    request.post(dataMonitoringRequestUrl, p).then(res => {
+    request.post(dataMonitoringRequestUrl, params).then(res => {
         runningDevice = res.data.runningDevice
         abnormalDevice = res.data.abnormalDevice
-        time = res.data.time
+        time = res.data.run_time
     }).catch(err =>{
         console.log(err)
     }).finally(()=>{
@@ -101,7 +97,7 @@ export function dataMonitoringRequest(obj, params) {
 
 // 用到
 export function deviceTemperatureHumidDataRequest(obj, params){
-    // console.log("param",params)
+    console.log("param",params)
     console.log(params);
     let p = {
         deviceId: 0
@@ -110,40 +106,40 @@ export function deviceTemperatureHumidDataRequest(obj, params){
         // deviceId: params[2],
     }
     let dataDeviceDetailRequestUrl = url + '/HomePage/Home/DeviceDataDetail'
-    let temperature1 = [], temperature2 = [], humidity1 = [], humidity2 = [], time = []
+    let temperature1 = [], temperature2 = [], humidity1 = [], humidity2 = [], run_time = []
     request.post(dataDeviceDetailRequestUrl, p).then(res => {
         temperature1 = res.data.temperature1
         temperature2 = res.data.temperature2
         humidity1 = res.data.humidity1
         humidity2 = res.data.humidity2
-        time = res.data.time
+        run_time = res.data.run_time
     }).catch(err =>{
         console.log(err)
     }).finally(()=>{
-        obj.setDeviceDataOption(temperature1,temperature2, humidity1, humidity2, time)
+        obj.setDeviceDataOption(temperature1,temperature2, humidity1, humidity2, run_time)
     })
 }
 
 //首页设备控制模块状态请求
-export function deviceControlRequestGet(obj) {
-
-    let deviceControlRequestGetUrl = url + '/HomePage/Home/DeviceControl'
-    let buzzerData = false
-    let ledData = false
-    let electricData = false
-
-    axios.get(deviceControlRequestGetUrl).then((res) => {
-        buzzerData = res.data.alarm
-        ledData = res.data.led
-        electricData = res.data.motor
-    }).catch((err) => {
-        console.log(err)
-    }).finally(() => {
-        obj.BuzzerStatus = buzzerData
-        obj.LedStatus = ledData
-        obj.ElectricStatus = electricData
-    })
-}
+// export function deviceControlRequestGet(obj) {
+//
+//     let deviceControlRequestGetUrl = url + '/HomePage/Home/DeviceControl'
+//     let buzzerData = false
+//     let ledData = false
+//     let electricData = false
+//
+//     axios.get(deviceControlRequestGetUrl).then((res) => {
+//         buzzerData = res.data.alarm
+//         ledData = res.data.led
+//         electricData = res.data.motor
+//     }).catch((err) => {
+//         console.log(err)
+//     }).finally(() => {
+//         obj.BuzzerStatus = buzzerData
+//         obj.LedStatus = ledData
+//         obj.ElectricStatus = electricData
+//     })
+// }
 
 // //首页设备控制模块发起控制请求
 // export function deviceControlRequestPost(obj) {
@@ -182,7 +178,7 @@ export function deviceControlRequestGet(obj) {
 //
 
 export function queryDataRequest(obj, params) {
-    console.log(params)
+    // console.log("query", params)
     let queryDataRequestGetUrl = url + '/HomePage/Home/QueryData'
     let options
     axios.post(queryDataRequestGetUrl, params).then((res) => {

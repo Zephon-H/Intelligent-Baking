@@ -4,28 +4,7 @@ import {url} from "@/api/main";
 //数据分析页  仪表数据可视化获取设备列表
 export function getDeviceList(obj) {
     let deviceListRequestUrl = url + '/HomePage/DataAnalysis/SensingData'
-    let devieceList = [
-        {
-            DeviceID: '123',
-            sensorList: ['温度', '湿度', '光照'],
-            disabled: false
-        },
-        {
-            DeviceID: '145',
-            sensorList: ['温度', '湿度'],
-            disabled: false
-        },
-        {
-            DeviceID: '136',
-            sensorList: ['湿度', '光照'],
-            disabled: false
-        },
-        {
-            DeviceID: '154',
-            sensorList: ['温度', '光照'],
-            disabled: false
-        }
-    ]
+    let devieceList = []
 
     axios.get(deviceListRequestUrl).then((res) => {
         devieceList = res.data.deviceList

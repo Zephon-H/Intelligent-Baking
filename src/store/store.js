@@ -5,10 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        homePageTimeValue: [new Date(2021, 10, 29, 10, 0), new Date(2021, 10, 29,11, 0)],
+        homePageTimeValue: {
+            "startTime": "1d",
+            "endTime": "9d"
+        },
     },
     mutations: {
-        setTimeValue(state, timeValue){
+        setTimeValue(state, timeValue) {
+            console.log("set", timeValue)
             state.homePageTimeValue = timeValue
         },
     },

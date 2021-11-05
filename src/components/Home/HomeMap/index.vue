@@ -28,8 +28,10 @@ export default {
       mapData: [], // 当前地图上的地区
       option: {...mapOption.basicOption}, // map的相关配置
       deepTree: [],// 点击地图时push，点返回时pop
-      areaName: '中国', // 当前地名
-      areaCode: '000000', // 当前行政区划
+      // areaName: '中国', // 当前地名
+      // areaCode: '000000', // 当前行政区划
+      areaName: '云南省', // 当前地名
+      areaCode: '530000', // 当前行政区划
       areaLevel: 'country', // 当前级别
       timeValue: this.$store.state.homePageTimeValue,
     }
@@ -60,11 +62,11 @@ export default {
         //地图容器
         this.chart = this.$echarts.init(document.getElementById('map'));
       }
-      if (this.areaCode === '000000') {
-        this.requestGetChinaJson();
-      } else {
+      // if (this.areaCode === '000000') {
+      //   this.requestGetChinaJson();
+      // } else {
         this.requestGetProvinceJSON({areaName: this.areaName, areaCode: this.areaCode})
-      }
+      // }
     },
     // 地图点击
     echartsMapClick(params) {

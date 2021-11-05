@@ -48,11 +48,11 @@ export default {
     homePageTimeValue: {
       handler() {
         this.timeValue = this.homePageTimeValue
-        let params = {
-          startTime: this.timeValue[0],
-          endTime: this.timeValue[1]
-        }
-        queryDataRequest(this, params)
+        // let params = {
+        //   startTime: this.timeValue[0],
+        //   endTime: this.timeValue[1]
+        // }
+        queryDataRequest(this, this.timeValue)
       },
       immediate: true,
       deep: true

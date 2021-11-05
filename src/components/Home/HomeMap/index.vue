@@ -1,6 +1,6 @@
 <template>
   <div id="china_map_box">
-    <el-button type="primary" size="medium" class="back" @click="back" v-if="deepTree.length > 1">返回</el-button>
+    <el-button type="primary" size="medium" class="back" @click="back" v-if="deepTree.length > 2">返回</el-button>
     <div class="echarts">
       <div id="map"></div>
     </div>
@@ -30,9 +30,10 @@ export default {
       deepTree: [],// 点击地图时push，点返回时pop
       // areaName: '中国', // 当前地名
       // areaCode: '000000', // 当前行政区划
+      // areaLevel: 'country', // 当前级别
       areaName: '云南省', // 当前地名
       areaCode: '530000', // 当前行政区划
-      areaLevel: 'country', // 当前级别
+      areaLevel: 'city', // 当前级别
       timeValue: this.$store.state.homePageTimeValue,
     }
   },
@@ -65,7 +66,8 @@ export default {
       // if (this.areaCode === '000000') {
       //   this.requestGetChinaJson();
       // } else {
-        this.requestGetProvinceJSON({areaName: this.areaName, areaCode: this.areaCode})
+      this.requestGetProvinceJSON({areaName: this.areaName, areaCode: this.areaCode})
+      console.log(this.deepTree)
       // }
     },
     // 地图点击
@@ -81,6 +83,7 @@ export default {
         if (this.special.indexOf(params.seriesName) >= 0) {
           return;
         } else {
+          console.log("params", params)
           this.areaCode = this.areaMap[params.name];
           this.areaLevel = params.data.areaLevel;
           //显示县级地图
@@ -137,10 +140,11 @@ export default {
     requestGetProvinceJSON(params) {
       let p = {
         areaCode: params.areaCode,
-        startTime: this.timeValue[0],
-        endTime: this.timeValue[1],
+        startTime: this.timeValue.startTime,
+        endTime: this.timeValue.endTime,
       }
       getMapData(p).then(r => {
+        console.log("get")
         let hasDeviceData = r.data
         getProvinceJSON(params.areaCode).then(res => {
           this.$echarts.registerMap(params.areaName, res);
@@ -171,15 +175,15 @@ export default {
           this.renderMap(params.areaName, arr);
         });
       })
-    }
-    ,
+    },
 // 加载市级地图
     requestGetCityJSON(params) {
+      console.log("p",params)
       this.areaLevel = params.areaLevel;
       let p = {
         areaCode: params.areaCode,
-        startTime: this.timeValue[0],
-        endTime: this.timeValue[1],
+        startTime: this.timeValue.startTime,
+        endTime: this.timeValue.endTime,
       }
       getMapData(p).then(r => {
         let hasDeviceData = r.data

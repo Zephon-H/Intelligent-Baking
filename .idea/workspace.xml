@@ -22,16 +22,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e615f997-32d2-42d7-b0ba-a401f4d62b72" name="Default Changelist" comment="改名">
+    <list default="true" id="e615f997-32d2-42d7-b0ba-a401f4d62b72" name="Default Changelist" comment="由于数据格式变换，更新了一些相关内容">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/HomePage/DataAnalysis.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/HomePage/DataAnalysis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/HomePage/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/HomePage/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/HomeMap/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/HomeMap/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HomePageHeader/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomePageHeader/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mock/DataQuery/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/mock/DataQuery/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mock/HomePage/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/mock/HomePage/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/HomePage/DataAnalysis/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/HomePage/DataAnalysis/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +213,7 @@
       <workItem from="1635488923429" duration="28035000" />
       <workItem from="1635557601061" duration="17970000" />
       <workItem from="1635830296355" duration="2401000" />
-      <workItem from="1636080204767" duration="2239000" />
+      <workItem from="1636080204767" duration="4541000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <created>1635479691309</created>
@@ -243,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635574544751</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="由于数据格式变换，更新了一些相关内容">
+      <created>1636082569566</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1636082569566</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,6 +267,7 @@
     <MESSAGE value="完成首页部分和数据查询部分" />
     <MESSAGE value="基本完成" />
     <MESSAGE value="改名" />
-    <option name="LAST_COMMIT_MESSAGE" value="改名" />
+    <MESSAGE value="由于数据格式变换，更新了一些相关内容" />
+    <option name="LAST_COMMIT_MESSAGE" value="由于数据格式变换，更新了一些相关内容" />
   </component>
 </project>

@@ -19,7 +19,7 @@ export default {
       //温度监测图表配置
       temperatureOption: {
         title: {
-          text: '温度',
+          text: '干球',
           textStyle: {
             align: 'center',
             color: "#54D8FF",
@@ -141,7 +141,7 @@ export default {
         }],
         series: [
           {
-            name: '上棚温度',
+            name: '干球温度',
             type: 'line',
             smooth: true, //是否平滑
             showAllSymbol: true,
@@ -186,7 +186,7 @@ export default {
             },
             data: [],
           }, {
-            name: '下棚温度',
+            name: '干球目标',
             type: 'line',
             smooth: true, //是否平滑
             showAllSymbol: true,
@@ -236,7 +236,7 @@ export default {
       //湿度监测图表配置
       humidityOption: {
         title: {
-          text: '湿度',
+          text: '湿球',
           textStyle: {
             align: 'center',
             color: "#54D8FF",
@@ -324,7 +324,7 @@ export default {
 
         yAxis: [{
           type: 'value',
-          name: '湿度/ %',
+          name: '温度/ ℃',
           min: 0,
           max: 100,
           splitNumber: 5,
@@ -358,7 +358,7 @@ export default {
         }],
         series: [
           {
-            name: '湿度',
+            name: '湿球温度',
             type: 'line',
             smooth: true, //是否平滑
             showAllSymbol: true,
@@ -403,7 +403,7 @@ export default {
             },
             data: [],
           }, {
-            name: '湿度',
+            name: '湿球目标',
             type: 'line',
             smooth: true, //是否平滑
             showAllSymbol: true,
@@ -523,7 +523,7 @@ export default {
         var result = `时间:${params[0].axisValue}</br>`
         params.forEach(function (item) {
           if (item.data) {
-            result += `${item.seriesName}:${item.data} %</br>`
+            result += `${item.seriesName}:${item.data} ℃</br>`
             // result += item.data[2]+'</br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>'
             // result +=item.seriesName + ': '+item.data[1]+' %</br>';
           }

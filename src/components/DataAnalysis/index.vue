@@ -18,19 +18,19 @@
       </el-table-column>
       <el-table-column
           prop="temp1"
-          label="上棚温度">
+          label="干球温度">
       </el-table-column>
       <el-table-column
           prop="temp2"
-          label="下棚温度">
+          label="湿球温度">
       </el-table-column>
       <el-table-column
           prop="humid1"
-          label="上棚湿度">
+          label="干球目标">
       </el-table-column>
       <el-table-column
           prop="humid2"
-          label="下棚湿度">
+          label="湿球目标">
       </el-table-column>
     </el-table>
     </div>
